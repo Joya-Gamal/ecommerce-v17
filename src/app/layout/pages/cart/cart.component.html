@@ -1,0 +1,50 @@
+<div class="w-3/4 mx-auto">
+<h2 class="text-main">Shop cart</h2>
+
+
+
+<!-- exist -->
+@if(myCart?.data?.products?.length !== 0){
+    <h5>totl price : {{myCart?.data?.totalCartPrice}}</h5>
+
+
+    <button class="btn-main" [routerLink]="['/checkout' , myCart?.cartId]">payment</button>
+
+    <button class="btn-main" (click)="clearCart()">Clear cart</button>
+    
+}
+
+
+
+@for (product of myCart?.data?.products; track $index) {
+
+    <div
+    class="flex flex-wrap items-center">
+        <div class="w-2/12">
+            <img [src]="product.product.imageCover" class="w-full" [alt]="product.product.title">
+        </div>
+
+
+        <div class="w-7/12">
+            <h2>{{product.product.title}}</h2>
+            <span>Price : {{product.price}}</span>
+            <br>
+            <i class="fa-solid fa-trash text-red-500 cursor-pointer" (click)="removeItem(product.product._id)"></i>
+
+        </div>
+        
+
+        <div class="w-3/12 flex gap-5 items-center">
+            <i class="fa-solid fa-plus-circle cursor-pointer" (click)="updateQuantity(product.product._id, product.count+1)"></i>
+
+            <span>{{product.count}}</span>
+
+            <i class="fa-solid fa-circle-minus cursor-pointer" (click)="updateQuantity(product.product._id, product.count-1)"></i>
+        </div>
+    </div>
+}
+@empty{
+    <img src="./assets/images/emptycart.png" alt="">
+}
+
+</div>

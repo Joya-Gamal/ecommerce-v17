@@ -1,0 +1,69 @@
+<div class="w-10/12 mx-auto py-5">
+    <h2 class="text-main">Register Now:</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="sendData()" class="mt-5">
+    
+        <p>{{errorMsg}}</p>
+     
+        <div class="mx-3">
+            <label for="email">email</label>
+            <input class="w-full rounded-lg border-gray-400 mt-3" id="email"  formControlName="email" type="email">
+    
+            @if(loginForm.get('email')?.errors && loginForm.get('email')?.touched){
+        
+                <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                   @if(loginForm.get('email')?.getError('required')){
+                    <p>email is redqurie</p>
+                   }
+            
+                   @else if(loginForm.get('email')?.getError('email')){
+                    <p>email not valid</p>
+                   }
+            
+                   
+                  
+               
+                  </div>
+            
+            }
+        </div>
+        <div class="mx-3">
+            <label for="password">password</label>
+            <input #pass class="w-full rounded-lg border-gray-400 mt-3 " id="password"  formControlName="password" type="password">
+            <i class="fa-regular fa-eye " [class.hidden]="show" (click)="(pass.type = 'text'); show= true"></i>
+            <i class="fa-solid fa-eye-slash"  [class.hidden]="!show" (click)="(pass.type ='password'); show= false"></i>
+           
+           
+           
+            @if(loginForm.get('password')?.errors && loginForm.get('password')?.touched){
+        
+                <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                   @if(loginForm.get('password')?.getError('required')){
+                    <p>password is redqurie</p>
+                   }
+            
+                   @else if(loginForm.get('password')?.getError('pattern')){
+                    <p>password not valid</p>
+                   }
+            
+                   
+                  
+               
+                  </div>
+            
+            }
+            
+        </div>
+       
+     
+    
+<div class="flex justify-between items-center">
+    
+    <a routerLink="/forgetPassword" class="text-main">forget Password</a>
+    <button [disabled]="loginForm.invalid" class="btn-main block ms-auto rounded-lg my-4">Register
+        @if(isLoading){
+            <i class="fa fa-spin fa-spinner"></i>
+        }
+    </button>
+</div>
+    </form>
+    </div>
